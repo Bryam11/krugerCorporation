@@ -37,7 +37,7 @@ public class EmployeeController {
         return employeeServiceDao.updateEmployee(employeeUpdateDto);
     }
 
-    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')")
     @GetMapping("/getEmployeeByCedula")
     public ResponseEntity getEmployeeByCedula(@Param("cedula") String cedula) {
         return ResponseEntity.ok(employeeServiceDao.findEmployeeByCedula(cedula));
