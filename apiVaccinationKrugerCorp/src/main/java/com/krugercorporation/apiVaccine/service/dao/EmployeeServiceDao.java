@@ -25,7 +25,7 @@ public interface EmployeeServiceDao {
 
     List<EmployeeFindAllDto> listAllEmployeeDelete();
 
-    EmployeeStatusVaccineDto findEmployeeByCedula(String cedula);
+    List<EmployeeStatusVaccineDto> findEmployeeByCedula(String cedula);
 
 
 }

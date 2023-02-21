@@ -4,6 +4,7 @@ import com.krugercorporation.apiVaccine.constants.GeneralConstants;
 import com.krugercorporation.apiVaccine.dto.EmployeeFindAllDto;
 import com.krugercorporation.apiVaccine.dto.EmployeeStatusVaccineDto;
 import com.krugercorporation.apiVaccine.dto.EmployeeUpdateDto;
+import com.krugercorporation.apiVaccine.dto.Mensaje;
 import com.krugercorporation.apiVaccine.models.TblEmployee;
 import com.krugercorporation.apiVaccine.models.TblEmployeeVaccine;
 import com.krugercorporation.apiVaccine.models.TblPerson;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
@@ -83,33 +85,31 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
     @Override
     public ResponseEntity<?> updateEmployee(EmployeeUpdateDto employeeUpdateDto) {
         TblPerson person = personRepository.findByCedula(employeeUpdateDto.getCedula());
-        if (person != null) {
-            person.setBirthDate(employeeUpdateDto.getDateOfBirth());
+        if (person != null && person.getTblEmployeeByIdPerson().getStatus()) {
+            person.setBirthDate(java.sql.Date.valueOf(employeeUpdateDto.getDateOfBirth()));
             person.setAddress(employeeUpdateDto.getAddress());
             person.setPhone(employeeUpdateDto.getTelephone());
             person = personRepository.save(person);
 
             TblEmployee employee = person.getTblEmployeeByIdPerson();
-            employee.setVaccinationStatus(employeeUpdateDto.getStateVaccination());
             employee = employeeRepository.save(employee);
 
 
+            TblEmployeeVaccine employeeVaccine = new TblEmployeeVaccine();
+            employeeVaccine.setDose(employeeUpdateDto.getDose());
+            employeeVaccine.setVaccinationStatus(employeeUpdateDto.getStateVaccination());
+            employeeVaccine.setTblEmployeeByIdEmployee(employee);
             if (employeeUpdateDto.getStateVaccination().equals(GeneralConstants.STATE_VACCINATION_YES)) {
-                TblEmployeeVaccine employeeVaccine = new TblEmployeeVaccine();
-                employeeVaccine.setDateVaccine(employeeUpdateDto.getDateVaccination());
-                employeeVaccine.setDose(employeeUpdateDto.getDose());
-                employeeVaccine.setTblEmployeeByIdEmployee(employee);
-                if (0 != employeeUpdateDto.getIdTypeVaccine()) {
-                    employeeVaccine.setTblTypeVaccineByIdTypeVaccine(typeVaccineRepository.findById(employeeUpdateDto.getIdTypeVaccine()).get());
-                }
-                ;
-                employeeVaccineRepository.save(employeeVaccine);
+                employeeVaccine.setDateVaccine(java.sql.Date.valueOf(employeeUpdateDto.getDateVaccination()));
+                employeeVaccine.setTblTypeVaccineByIdTypeVaccine(typeVaccineRepository.findById(employeeUpdateDto.getIdTypeVaccine()).get());
             }
+            ;
+            employeeVaccineRepository.save(employeeVaccine);
 
 
-            return ResponseEntity.ok("Empleado actualizado");
+            return ResponseEntity.ok(new Mensaje("Empleado actualizado"));
         }
-        return ResponseEntity.badRequest().body("Empleado no encontrado");
+        return ResponseEntity.badRequest().body(new Mensaje("Empleado no encontrado verifique la cédula o que el empleado no este eliminado"));
     }
 
     @Override
@@ -131,9 +131,9 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
             TblEmployee employee = person.getTblEmployeeByIdPerson();
             employee.setStatus(GeneralConstants.EMPLOYEE_INACTIVE);
             employeeRepository.save(employee);
-            return ResponseEntity.ok("Empleado eliminado es una eliminación lógica");
+            return ResponseEntity.ok(new Mensaje("Empleado eliminado con éxito recuerde que es una eliminación lógica"));
         }
-        return ResponseEntity.badRequest().body("Empleado no encontrado");
+        return ResponseEntity.badRequest().body(new Mensaje("Empleado no encontrado verifique la cédula"));
     }
 
     @Override
@@ -142,7 +142,7 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
     }
 
     @Override
-    public EmployeeStatusVaccineDto findEmployeeByCedula(String cedula) {
+    public List<EmployeeStatusVaccineDto> findEmployeeByCedula(String cedula) {
         return employeeRepository.findEmployeesByCedula(cedula);
     }
 

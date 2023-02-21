@@ -26,6 +26,9 @@ public class TblEmployeeVaccine {
     @Column(name = "dose")
     private Integer dose;
 
+    @Column(name = "vaccination_status", length = 20)
+    private String vaccinationStatus;
+
 
     @JsonManagedReference(value = "tblEmployeeByIdEmployee")
     @JsonIgnore

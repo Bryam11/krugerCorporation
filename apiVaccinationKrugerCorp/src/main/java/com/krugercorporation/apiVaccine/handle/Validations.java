@@ -5,7 +5,10 @@ import com.krugercorporation.apiVaccine.dto.EmployeeUpdateDto;
 import com.krugercorporation.apiVaccine.security.dto.SignupDTO;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -63,8 +66,8 @@ public class Validations {
         if (!employeeUpdateDto.getTelephone().matches("[0-9]+")) {
             mensajes.add("El teléfono no tiene un formato válido.");
         }
-        if (!employeeUpdateDto.getStateVaccination().equals(GeneralConstants.STATE_VACCINATION_YES) || !employeeUpdateDto.getStateVaccination().equals(GeneralConstants.STATE_VACCINATION_NO)) {
-            mensajes.add("Solo puede ser: Vacunado, No Vacunado");
+        if (!isValidStateVaccination(employeeUpdateDto.getStateVaccination())) {
+            mensajes.add("El estado de vacunación no es válido solo puede ser: Vacunado, No Vacunado");
         }
         if (employeeUpdateDto.getStateVaccination() == null || employeeUpdateDto.getStateVaccination().isEmpty()
                 || employeeUpdateDto.getStateVaccination().equals(GeneralConstants.STATE_VACCINATION_NO)) {
@@ -73,30 +76,33 @@ public class Validations {
         if (employeeUpdateDto.getStateVaccination().length() > 11) {
             mensajes.add("El estado de vacunación no puede tener más de 11 caracteres solo puede ser: Vacunado, No Vacunado");
         }
+        if (!validateFecha(employeeUpdateDto.getDateVaccination())) {
+            mensajes.add("La fecha de vacunación no tiene un formato válido debe ser en el formato yyyy-MM-dd.");
+        }
+        if (!validateFecha(employeeUpdateDto.getDateOfBirth())) {
+            mensajes.add("La fecha de nacimiento no tiene un formato válido debe ser en el formato yyyy-MM-dd.");
+        }
 
         if (employeeUpdateDto.getIdTypeVaccine() == 0 || employeeUpdateDto.getDateVaccination() == null || employeeUpdateDto.getDose() == 0) {
-            mensajes.add("El tipo de vacuna, la fecha de vacunación y la dosis son obligatorios");
+            mensajes.add("El tipo de vacuna, la fecha de vacunación y la dosis son obligatorios en caso de que el estado de vacunación sea: Vacunado");
         }
 
         return mensajes.toArray(new String[0]);
     }
 
-//    public static String[] validateStateVaccine(EmployeeUpdateDto employeeUpdateDto) {
-//        List<String> mensajes = new ArrayList<>();
-//
-//        if (employeeUpdateDto.getStateVaccination() == null || employeeUpdateDto.getStateVaccination().isEmpty()) {
-//            mensajes.add("El estado de vacunación es obligatorio");
-//            return mensajes.toArray(new String[0]);
-//        }
-//        if (employeeUpdateDto.getStateVaccination().length() > 11) {
-//            mensajes.add("El estado de vacunación no puede tener más de 11 caracteres solo puede ser: Vacunado, No Vacunado");
-//        }
-//
-//        if (employeeUpdateDto.getIdTypeVaccine() == 0 || employeeUpdateDto.getDateVaccination() == null || employeeUpdateDto.getDose() == 0) {
-//            mensajes.add("El tipo de vacuna, la fecha de vacunación y la dosis son obligatorios");
-//        }
-//
-//
-//        return mensajes.toArray(new String[0]);
-//    }
+    public static boolean isValidStateVaccination(String stateVaccination) {
+        return GeneralConstants.STATE_VACCINATION_YES.equalsIgnoreCase(stateVaccination) || GeneralConstants.STATE_VACCINATION_NO.equalsIgnoreCase(stateVaccination);
+    }
+
+    public static boolean validateFecha(String dateStr) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+
+        try {
+            Date fecha = dateFormat.parse(dateStr);
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
 }

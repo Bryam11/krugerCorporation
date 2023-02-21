@@ -27,8 +27,6 @@ public class TblEmployee {
     @Column(name = "hiring_date")
     private Date hiringDate;
 
-    @Column(name = "vaccination_status", length = 20)
-    private String vaccinationStatus;
 
     @Column(name = "status")
     private Boolean status;

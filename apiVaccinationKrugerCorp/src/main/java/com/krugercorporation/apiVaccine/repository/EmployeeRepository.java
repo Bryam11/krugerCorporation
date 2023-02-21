@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface EmployeeRepository extends JpaRepository<TblEmployee, Integer> {
 
-    List<TblEmployee> findAllByVaccinationStatus(String status);
+
 
     @Query(value = "select  tp.cedula as numeroCedula, tp.name as nombres, " +
             "tp.last_name as apellidos , ttv.name as nombreVacuna, tev.date_vaccine as fechaVacunacion, " +
@@ -34,10 +34,10 @@ public interface EmployeeRepository extends JpaRepository<TblEmployee, Integer> 
 
     @Query(value = "select  tp.cedula as numeroCedula, tp.name as nombres, \n" +
             "tp.last_name as apellidos , ttv.name as nombreVacuna, tev.date_vaccine as fechaVacunacion, \n" +
-            "tev.dose as dosis, te.vaccination_status as estadoVacunacion \n" +
+            "tev.dose as dosis, tev.vaccination_status as estadoVacunacion \n" +
             "from tbl_employee te join tbl_employee_vaccine tev on te.id_employee = tev.id_employee \n" +
             "join tbl_person tp on te.id_person = tp.id_person \n" +
-            "join tbl_type_vaccine ttv on ttv.id_type_vaccine = tev.id_type_vaccine where te.vaccination_status  = ?1 ", nativeQuery = true)
+            "left join tbl_type_vaccine ttv on ttv.id_type_vaccine = tev.id_type_vaccine where tev.vaccination_status  = ?1 ", nativeQuery = true)
     List<EmployeeStatusVaccineDto> listAllEmployeesByStatusVaccine(String status);
 
     @Query(value = "select te.hiring_date  as fechaContratacion, tp.address as direccion,\n" +
@@ -48,9 +48,9 @@ public interface EmployeeRepository extends JpaRepository<TblEmployee, Integer> 
 
     @Query(value = "select  tp.cedula as numeroCedula, tp.name as nombres, \n" +
             "tp.last_name as apellidos , ttv.name as nombreVacuna, tev.date_vaccine as fechaVacunacion, \n" +
-            "tev.dose as dosis, te.vaccination_status as estadoVacunacion \n" +
+            "tev.dose as dosis, tev.vaccination_status as estadoVacunacion \n" +
             "from tbl_employee te left join tbl_employee_vaccine tev on te.id_employee = tev.id_employee \n" +
             "join tbl_person tp on te.id_person = tp.id_person \n" +
             "left join tbl_type_vaccine ttv on ttv.id_type_vaccine = tev.id_type_vaccine where tp.cedula  = ?1 ", nativeQuery = true)
-    EmployeeStatusVaccineDto findEmployeesByCedula(String cedula);
+    List<EmployeeStatusVaccineDto> findEmployeesByCedula(String cedula);
 }

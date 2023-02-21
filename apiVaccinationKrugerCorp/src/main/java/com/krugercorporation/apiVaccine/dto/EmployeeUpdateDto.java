@@ -10,7 +10,7 @@ import java.util.Date;
 public class EmployeeUpdateDto {
 
     private String cedula;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String Address;
 
     private String telephone;
@@ -21,5 +21,5 @@ public class EmployeeUpdateDto {
 
     private Integer dose;
 
-    private Date dateVaccination;
+    private String dateVaccination;
 }

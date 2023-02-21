@@ -27,7 +27,7 @@ public class EmployeeController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE')")
     @PutMapping(value = "/update")
     public ResponseEntity update(@RequestBody EmployeeUpdateDto employeeUpdateDto) {
         String[] error = Validations.validateUpdateEmployee(employeeUpdateDto);
@@ -54,7 +54,7 @@ public class EmployeeController {
             return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
         }
         TblUser tblUser = employeeServiceDao.createEmployee(nuevoUsuario);
-        return new ResponseEntity("usuario asignado " + tblUser.getUsername(), HttpStatus.OK);
+        return new ResponseEntity(new Mensaje("Nombre Usuario Asignado " + tblUser.getUsername()), HttpStatus.OK);
     }
 
 
