@@ -22,9 +22,9 @@ Mira **Deployment** para conocer como desplegar el proyecto.
 
 ### Pre-requisitos 📋
 
-*_**- Java**_
-*_**- Postgres**_
-*_**- Java SDK 17**_
+_**- Maven**_
+_**- Postgres**_
+_**- Java SDK 17**_
 
 ### Instalación 🔧
 
@@ -46,7 +46,7 @@ al swagger
 _Para poder ejecutar las pruebas se debe tener instalado el plugin de maven en el IDE_
 
 al momento de probar en el swagger se debe tener en cuenta que el token de autenticacion
-de la siguiente manera:
+debe ingresarse de la siguiente manera:
 
 - Bearer + token
 
@@ -76,12 +76,12 @@ de la siguiente manera:
 | /api/employee/nuevo                                   | Crea un empleado              | ADMIN    |
 | /api/employee/deleteEmployeeByCedula/{Cedula}         | Elimina un empleado           | ADMIN    |
 | /api/employee/listAllEmployee                         | Visualiza todos los empleados | ADMIN    |
-| /api/employee/listAllEmployeeDelete                   | Visualiza un empleado         | ADMIN    |
-| /api/vaccinationReport/getEmployeeByStatusVaccination | Actualiza un empleado         | EMPLOYEE |
-| /api/vaccinationReport/getEmployeeByTypeVaccine       | Actualiza un empleado         | EMPLOYEE |
-| /api/vaccinationReport/getEmployeeByVaccinationDate   | Visualiza un empleado         | EMPLOYEE |
+| /api/employee/listAllEmployeeDelete                   | Visualiza todos los empleados eliminados         | ADMIN    |
+| /api/vaccinationReport/getEmployeeByStatusVaccination | Lista los empleados por estado de vacunacion (Vacunado No Vacunado)         | EMPLOYEE |
+| /api/vaccinationReport/getEmployeeByTypeVaccine       | Lista los empleados por tipo de vacuna         | EMPLOYEE |
+| /api/vaccinationReport/getEmployeeByVaccinationDate   | Lista todos los empleados vacunados por un rango de fecha         | EMPLOYEE |
 | **auth**                                              | Logueo en el servicio         | All      |
-
+| /api/employee/update                                           | Logueo en el servicio         | All      |
 ## Manejo de Usuarios 👨‍💻
 
 _Breve explicacion sobre como se generan los usuarios._
