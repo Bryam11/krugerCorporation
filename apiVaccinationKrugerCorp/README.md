@@ -50,8 +50,6 @@ debe ingresarse de la siguiente manera:
 
 - Bearer + token
 
-```
-
 ## Construido con 🛠️
 
 | Base de datos | BACKEND         |
@@ -64,29 +62,29 @@ debe ingresarse de la siguiente manera:
 
 ## Tabla de roles 📋
 
-| Rol      | Descripcion                                                                                                   |                             
-|----------|---------------------------------------------------------------------------------------------------------------|
-| ADMIN    | Administrador de la empresa.<br/>este rol <br/>**crea** <br/>**visualiza**<br/>**elimina** <br/>los empleados |                             
-| EMPLOYEE | Empleado de la empresa con este rol sole se<br/>puede actualizar la informacion del empleado                  |                             
+| Rol      | Descripcion                                                                                                                  |                             
+|----------|------------------------------------------------------------------------------------------------------------------------------|
+| ADMIN    | Administrador de la empresa.<br/>este rol <br/>**crea** <br/>**visualiza**<br/>**elimina** <br/>los empleados                |                             
+| EMPLOYEE | Empleado de la empresa con este rol sole se<br/>puede actualizar la informacion del empleado<br/>y visualizar su informacion |                             
 
 ## Informacion de los endpoints 📋
 
-| Endpoint                                              | Descripcion                   | Rol      |
-|-------------------------------------------------------|-------------------------------|----------|
-| /api/employee/nuevo                                   | Crea un empleado              | ADMIN    |
-| /api/employee/deleteEmployeeByCedula/{Cedula}         | Elimina un empleado           | ADMIN    |
-| /api/employee/listAllEmployee                         | Visualiza todos los empleados | ADMIN    |
-| /api/employee/listAllEmployeeDelete                   | Visualiza todos los empleados eliminados         | ADMIN    |
-| /api/vaccinationReport/getEmployeeByStatusVaccination | Lista los empleados por estado de vacunacion (Vacunado No Vacunado)         | EMPLOYEE |
-| /api/vaccinationReport/getEmployeeByTypeVaccine       | Lista los empleados por tipo de vacuna         | EMPLOYEE |
-| /api/vaccinationReport/getEmployeeByVaccinationDate   | Lista todos los empleados vacunados por un rango de fecha         | EMPLOYEE |
-| **auth**                                              | Logueo en el servicio         | All      |
-| /api/employee/update                                           | Logueo en el servicio         | All      |
+| Endpoint                                              | Descripcion                                                         | Rol   |
+|-------------------------------------------------------|---------------------------------------------------------------------|-------|
+| /api/employee/nuevo                                   | Crea un empleado                                                    | ADMIN |
+| /api/employee/deleteEmployeeByCedula/{Cedula}         | Elimina un empleado                                                 | ADMIN |
+| /api/employee/listAllEmployee                         | Visualiza todos los empleados                                       | ADMIN |
+| /api/employee/listAllEmployeeDelete                   | Visualiza todos los empleados eliminados                            | ADMIN |
+| /api/vaccinationReport/getEmployeeByStatusVaccination | Lista los empleados por estado de vacunacion (Vacunado No Vacunado) | ADMIN |
+| /api/vaccinationReport/getEmployeeByTypeVaccine       | Lista los empleados por tipo de vacuna                              | ADMIN |
+| /api/vaccinationReport/getEmployeeByVaccinationDate   | Lista todos los empleados vacunados por un rango de fecha           | ADMIN |
+| **auth**                                              | Logueo en el servicio                                               | All   |
+| /api/employee/update                                  | Logueo en el servicio                                               | All   |
+
 ## Manejo de Usuarios 👨‍💻
 
-_Breve explicacion sobre como se generan los usuarios._
-
 ```
+_Breve explicacion sobre como se generan los usuarios._
 
 Al momento que se levanta el servicio por primera vez se crean un
 usuario por defecto que tiene las siguentes credenciales
@@ -96,13 +94,12 @@ usuario por defecto que tiene las siguentes credenciales
 
 ```
 
-```
-
-Al momento que el admin registra un nuevo empleado se le asigna
-el rol de empleado y se le genera un usuario y contraseña
+Al momento que el admin registra un nuevo empleado
+se le asigna el rol de empleado y se le genera
+un usuario y contraseña
 
 - [x] Usuario: la primera letra del nombre mas el apellido paterno
-- [x] Contraseña: la primera letra del nombre mas la ceudla
+- [x] Contraseña: la primera letra del nombre mas la cedula
   ejemplo:
 - Nombres: Juan Antonio
 - Apellidos: Perez Machado
@@ -110,10 +107,6 @@ el rol de empleado y se le genera un usuario y contraseña
 
 - Usuario: JPerez
 - Contraseña: J123456789
-
-```
-
-
 
 ## Versionado 📌
 
