@@ -43,6 +43,14 @@ public interface EmployeeRepository extends JpaRepository<TblEmployee, Integer> 
     @Query(value = "select te.hiring_date  as fechaContratacion, tp.address as direccion,\n" +
             "tp.birth_date as fechaNacimiento , tp.cedula as cedula, tp.email as email ,\n" +
             "tp.last_name as nombres, tp.last_name as apellidos , tp.phone as celular \n" +
-            "from tbl_person tp join tbl_employee te on tp.id_person = te.id_person where te.status = ?1 " , nativeQuery = true)
+            "from tbl_person tp join tbl_employee te on tp.id_person = te.id_person where te.status = ?1 ", nativeQuery = true)
     List<EmployeeFindAllDto> listAllByStatusEmployee(Boolean status);
+
+    @Query(value = "select  tp.cedula as numeroCedula, tp.name as nombres, \n" +
+            "tp.last_name as apellidos , ttv.name as nombreVacuna, tev.date_vaccine as fechaVacunacion, \n" +
+            "tev.dose as dosis, te.vaccination_status as estadoVacunacion \n" +
+            "from tbl_employee te left join tbl_employee_vaccine tev on te.id_employee = tev.id_employee \n" +
+            "join tbl_person tp on te.id_person = tp.id_person \n" +
+            "left join tbl_type_vaccine ttv on ttv.id_type_vaccine = tev.id_type_vaccine where tp.cedula  = ?1 ", nativeQuery = true)
+    EmployeeStatusVaccineDto findEmployeesByCedula(String cedula);
 }

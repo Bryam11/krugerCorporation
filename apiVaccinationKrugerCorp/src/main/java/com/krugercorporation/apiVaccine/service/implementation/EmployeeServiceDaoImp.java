@@ -2,6 +2,7 @@ package com.krugercorporation.apiVaccine.service.implementation;
 
 import com.krugercorporation.apiVaccine.constants.GeneralConstants;
 import com.krugercorporation.apiVaccine.dto.EmployeeFindAllDto;
+import com.krugercorporation.apiVaccine.dto.EmployeeStatusVaccineDto;
 import com.krugercorporation.apiVaccine.dto.EmployeeUpdateDto;
 import com.krugercorporation.apiVaccine.models.TblEmployee;
 import com.krugercorporation.apiVaccine.models.TblEmployeeVaccine;
@@ -138,6 +139,11 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
     @Override
     public List<EmployeeFindAllDto> listAllEmployeeDelete() {
         return employeeRepository.listAllByStatusEmployee(GeneralConstants.EMPLOYEE_INACTIVE);
+    }
+
+    @Override
+    public EmployeeStatusVaccineDto findEmployeeByCedula(String cedula) {
+        return employeeRepository.findEmployeesByCedula(cedula);
     }
 
     private String generateUsername(String name, String lastName) {

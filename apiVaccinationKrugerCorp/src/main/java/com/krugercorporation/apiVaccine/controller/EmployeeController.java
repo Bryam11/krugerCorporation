@@ -9,6 +9,7 @@ import com.krugercorporation.apiVaccine.security.models.TblUser;
 import com.krugercorporation.apiVaccine.service.dao.EmployeeServiceDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -34,6 +35,12 @@ public class EmployeeController {
             return new ResponseEntity(error, HttpStatus.BAD_REQUEST);
         }
         return employeeServiceDao.updateEmployee(employeeUpdateDto);
+    }
+
+    @PreAuthorize("hasRole('ROLE_EMPLOYEE')")
+    @GetMapping("/getEmployeeByCedula")
+    public ResponseEntity getEmployeeByCedula(@Param("cedula") String cedula) {
+        return ResponseEntity.ok(employeeServiceDao.findEmployeeByCedula(cedula));
     }
 
     @PostMapping("/nuevo")

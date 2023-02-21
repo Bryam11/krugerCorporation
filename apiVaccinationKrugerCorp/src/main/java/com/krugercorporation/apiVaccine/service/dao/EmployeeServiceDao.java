@@ -1,6 +1,7 @@
 package com.krugercorporation.apiVaccine.service.dao;
 
 import com.krugercorporation.apiVaccine.dto.EmployeeFindAllDto;
+import com.krugercorporation.apiVaccine.dto.EmployeeStatusVaccineDto;
 import com.krugercorporation.apiVaccine.dto.EmployeeUpdateDto;
 import com.krugercorporation.apiVaccine.models.TblEmployee;
 import com.krugercorporation.apiVaccine.security.dto.SignupDTO;
@@ -24,6 +25,7 @@ public interface EmployeeServiceDao {
 
     List<EmployeeFindAllDto> listAllEmployeeDelete();
 
+    EmployeeStatusVaccineDto findEmployeeByCedula(String cedula);
 
 
 }

@@ -20,7 +20,7 @@ public class TblPerson {
     @Column(name = "id_person")
     private Integer idPerson;
 
-    @Column(name = "cedula", length = 100)
+    @Column(name = "cedula", length = 100, unique = true)
     private String cedula;
 
     @Column(name = "name", length = 100)
