@@ -41,7 +41,7 @@ public class TblUser implements UserDetails {
     @JsonManagedReference(value = "tblEmployeeByIdEmployee")
     @JsonIgnore
     @OneToOne
-    @JoinColumn(name = "id_employee", referencedColumnName = "id_employee")
+    @JoinColumn(name = "id_employee", referencedColumnName = "id_employee" , nullable = false)
     private TblEmployee tblEmployeeByIdEmployee;
 
 

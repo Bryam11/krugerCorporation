@@ -19,6 +19,8 @@ public class TblUserRol {
     @Column(name = "id_user_rol")
     private Integer idUserRol;
 
+    @Column(name = "status")
+    private Boolean status;
 
     @JsonManagedReference(value = "tblUserByIdUser")
     @JsonIgnore

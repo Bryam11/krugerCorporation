@@ -8,8 +8,9 @@ import lombok.Setter;
 @Setter
 public class SignupDTO {
     private String cedula;
-    private String name;
-    private String lastName;
+    private String names;
+    private String surnames;
     private String email;
+    private Integer idRole;
 
 }

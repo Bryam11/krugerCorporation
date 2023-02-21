@@ -52,8 +52,8 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
     @Override
     public TblUser createEmployee(SignupDTO signupDTO) {
         TblPerson person = new TblPerson();
-        person.setName(signupDTO.getName());
-        person.setLastName(signupDTO.getLastName());
+        person.setName(signupDTO.getNames());
+        person.setLastName(signupDTO.getSurnames());
         person.setCedula(signupDTO.getCedula());
         person.setEmail(signupDTO.getEmail());
         person = personRepository.save(person);
@@ -65,14 +65,15 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
         employee = employeeRepository.save(employee);
 
         TblUser user = new TblUser();
-        user.setUserName(generateUsername(signupDTO.getName(), signupDTO.getLastName()));
-        user.setPassword(passwordEncoder.encode(generatePassword(signupDTO.getName(), signupDTO.getCedula())));
+        user.setUserName(generateUsername(signupDTO.getNames(), signupDTO.getSurnames()));
+        user.setPassword(passwordEncoder.encode(generatePassword(signupDTO.getNames(), signupDTO.getCedula())));
         user.setTblEmployeeByIdEmployee(employee);
         user = userRepository.save(user);
 
         TblUserRol userRol = new TblUserRol();
         userRol.setTblUserByIdUser(user);
-        userRol.setTblRoleByIdRol(rolRepository.findById(2).get());
+        userRol.setStatus(GeneralConstants.EMPLOYEE_ACTIVE);
+        userRol.setTblRoleByIdRol(rolRepository.findById(signupDTO.getIdRole()).get());
         userRolRepository.save(userRol);
 
         return user;
@@ -91,12 +92,20 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
             employee.setVaccinationStatus(employeeUpdateDto.getStateVaccination());
             employee = employeeRepository.save(employee);
 
-            TblEmployeeVaccine employeeVaccine = new TblEmployeeVaccine();
-            employeeVaccine.setDateVaccine(employeeUpdateDto.getDateVaccination());
-            employeeVaccine.setDose(employeeUpdateDto.getDose());
-            employeeVaccine.setTblEmployeeByIdEmployee(employee);
-            employeeVaccine.setTblTypeVaccineByIdTypeVaccine(typeVaccineRepository.findById(employeeUpdateDto.getIdTypeVaccine()).get());
-            employeeVaccineRepository.save(employeeVaccine);
+
+            if (employeeUpdateDto.getStateVaccination().equals(GeneralConstants.STATE_VACCINATION_YES)) {
+                TblEmployeeVaccine employeeVaccine = new TblEmployeeVaccine();
+                employeeVaccine.setDateVaccine(employeeUpdateDto.getDateVaccination());
+                employeeVaccine.setDose(employeeUpdateDto.getDose());
+                employeeVaccine.setTblEmployeeByIdEmployee(employee);
+                if (0 != employeeUpdateDto.getIdTypeVaccine()) {
+                    employeeVaccine.setTblTypeVaccineByIdTypeVaccine(typeVaccineRepository.findById(employeeUpdateDto.getIdTypeVaccine()).get());
+                }
+                ;
+                employeeVaccineRepository.save(employeeVaccine);
+            }
+
+
             return ResponseEntity.ok("Empleado actualizado");
         }
         return ResponseEntity.badRequest().body("Empleado no encontrado");
@@ -133,15 +142,22 @@ public class EmployeeServiceDaoImp implements EmployeeServiceDao {
 
     private String generateUsername(String name, String lastName) {
         String username = name.substring(0, 1) + lastName.split(" ")[0];
+        int count = 1;
+        while (existNameUser(username)) {
+            username = username + count;
+            count++;
+        }
         return username;
     }
 
 
     private String generatePassword(String name, String cedula) {
         String password = name.substring(0, 1) + cedula;
-        System.out.println("Contraseña " + password);
         return password;
     }
 
+    private Boolean existNameUser(String name) {
+        return userRepository.findByUserName(name).isPresent();
+    }
 
 }
