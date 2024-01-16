@@ -1,5 +1,5 @@
 # Imagen base
-FROM openjdk:11-jdk-slim
+FROM openjdk:11
 
 # Copia el archivo .jar a la imagen
 COPY ./target/ApiVaccine*.jar app.jar
