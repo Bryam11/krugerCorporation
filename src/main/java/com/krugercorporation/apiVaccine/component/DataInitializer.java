@@ -14,6 +14,7 @@ import com.krugercorporation.apiVaccine.security.models.TblRole;
 import com.krugercorporation.apiVaccine.security.models.TblUser;
 import com.krugercorporation.apiVaccine.security.models.TblUserRol;
 import com.krugercorporation.apiVaccine.security.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -22,31 +23,32 @@ import javax.annotation.PostConstruct;
 import java.util.Date;
 
 @Component
+@RequiredArgsConstructor
 public class DataInitializer {
 
-    @Autowired
-    TypeVaccineRepository typeVaccineRepository;
 
-    @Autowired
-    RolRepository rolRepository;
+    private final TypeVaccineRepository typeVaccineRepository;
 
-    @Autowired
-    TblEmployeeVaccineRepository employeeVaccineRepository;
 
-    @Autowired
-    EmployeeRepository employeeRepository;
+    private final RolRepository rolRepository;
 
-    @Autowired
-    PersonRepository personRepository;
 
-    @Autowired
-    UserRepository userRepository;
+    private final TblEmployeeVaccineRepository employeeVaccineRepository;
 
-    @Autowired
-    UserRolRepository userRolRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final EmployeeRepository employeeRepository;
+
+
+    private final PersonRepository personRepository;
+
+
+    private final UserRepository userRepository;
+
+
+    private final UserRolRepository userRolRepository;
+
+
+    private final PasswordEncoder passwordEncoder;
 
 
     @PostConstruct

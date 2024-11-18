@@ -15,6 +15,7 @@ import com.krugercorporation.apiVaccine.security.models.TblUser;
 import com.krugercorporation.apiVaccine.security.models.TblUserRol;
 import com.krugercorporation.apiVaccine.security.repository.UserRepository;
 import com.krugercorporation.apiVaccine.service.dao.EmployeeServiceDao;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,31 +26,32 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EmployeeServiceDaoImp implements EmployeeServiceDao {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
-    @Autowired
-    PersonRepository personRepository;
+    private final EmployeeRepository employeeRepository;
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    UserRolRepository userRolRepository;
+    private final PersonRepository personRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
 
-    @Autowired
-    RolRepository rolRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    TypeVaccineRepository typeVaccineRepository;
 
-    @Autowired
-    TblEmployeeVaccineRepository employeeVaccineRepository;
+    private final UserRolRepository userRolRepository;
+
+
+    private final PasswordEncoder passwordEncoder;
+
+
+    private final RolRepository rolRepository;
+
+
+    private final TypeVaccineRepository typeVaccineRepository;
+
+
+    private final TblEmployeeVaccineRepository employeeVaccineRepository;
 
 
     @Override

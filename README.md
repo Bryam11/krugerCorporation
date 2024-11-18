@@ -21,7 +21,7 @@ de desarrollo y pruebas._
 ### Pre-requisitos 📋
 
 _**- Maven**_
-_**- Postgres**_
+_**- H2 DataBase**_
 _**- Java SDK 17**_
 
 ### Instalación 🔧
@@ -52,7 +52,7 @@ debe ingresarse de la siguiente manera:
 
 | Base de datos | BACKEND         |
 |---------------|-----------------|
-| PostgreSQL    | Spring          |
+| H2            | Spring          |
 |               | Apache Maven    | 
 |               | swagger         |
 |               | JWT             |
