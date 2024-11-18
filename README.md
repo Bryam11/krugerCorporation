@@ -115,4 +115,12 @@ las [versiones](https://github.com/Bryam11).
 
 * **Bryam Xavier ChuchucaGuzman** - *Developer* - xavierchuchuca18@gmail.com
 
+## Despliegue en Render
+
+La aplicación ha sido desplegada utilizando Render, una plataforma para DevOps con una capa gratuita.
+
+Puedes acceder a la aplicación en la siguiente URL:
+
+[https://vaccination-service.onrender.com](https://vaccination-service.onrender.com)
+
 
