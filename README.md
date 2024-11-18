@@ -37,7 +37,7 @@ Una vez se tenga levantado el proyecto se puede acceder
 al swagger
 ```
 
-[Swagger](http://localhost:8080/swagger-ui/) 👈👈
+[Swagger](https://vaccination-service.onrender.com/swagger-ui/) 👈👈
 
 ## Ejecutando las pruebas ⚙️
 
@@ -121,6 +121,6 @@ La aplicación ha sido desplegada utilizando Render, una plataforma para DevOps 
 
 Puedes acceder a la aplicación en la siguiente URL:
 
-[https://vaccination-service.onrender.com](https://vaccination-service.onrender.com)
+[vaccination-service](https://vaccination-service.onrender.com)
 
 
